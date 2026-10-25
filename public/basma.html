@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>بصمة Basma — AI-audited, tamper-proof carbon credits</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f7f5;--card:#fff;--fg:#0e2a26;--mut:#5b716c;--pri:#0f8a74;--pri2:#14b8a6;--bd:#d7e6e1;--ok:#16a34a;--warn:#d97706;--bad:#dc2626;--b:#65a30d}
+@media(prefers-color-scheme:dark){:root{--bg:#0b1715;--card:#12221f;--fg:#e4f2ee;--mut:#8fa9a3;--bd:#1f3833}}
+*{box-sizing:border-box}body{margin:0;font-family:Tajawal,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--fg);line-height:1.5}
+.w{max-inline-size:1150px;margin-inline:auto;padding:16px}
+header{background:linear-gradient(135deg,#0b5f52,#14b8a6);color:#fff}
+header .w{display:flex;flex-wrap:wrap;align-items:center;gap:12px;justify-content:space-between}
+h1{margin:0;font-size:30px;font-weight:800}h1 small{font-size:15px;opacity:.85;font-weight:500}.tag{margin:0;opacity:.92}
+button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:9px 14px;background:var(--pri);color:#fff;font-weight:700}
+button:hover{filter:brightness(1.1)}button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--pri2);outline-offset:2px}
+button.g{background:transparent;color:var(--pri);border:1.5px solid var(--pri)}button.r{background:var(--bad)}header button{background:#fff;color:#0b5f52}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-block:16px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:16px}
+.kpi b{display:block;font-size:26px;color:var(--pri)}.kpi span{color:var(--mut);font-size:13px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}.tabs button{background:var(--card);color:var(--fg);border:1px solid var(--bd)}.tabs button[aria-selected=true]{background:var(--pri);color:#fff}
+.path{font-size:13px;color:var(--mut);margin-block:10px;display:flex;gap:6px;flex-wrap:wrap}.path span{background:var(--card);border:1px solid var(--bd);border-radius:20px;padding:2px 10px}
+textarea,input,select{font:inherit;inline-size:100%;padding:10px;border-radius:10px;border:1px solid var(--bd);background:var(--bg);color:var(--fg)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-block:10px}
+table{inline-size:100%;border-collapse:collapse}td,th{padding:6px;border-block-end:1px solid var(--bd);text-align:start;font-size:14px}
+.badge{font-size:11px;border-radius:20px;padding:1px 8px;color:#fff}.total{font-size:28px;font-weight:800;color:var(--pri)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.bt{display:flex;gap:12px;align-items:flex-start}.bt h3{margin:0;font-size:16px}.meta{font-size:12.5px;color:var(--mut)}
+details summary{cursor:pointer;color:var(--pri);font-weight:700;margin-block-start:8px}
+.fl{font-size:13px;margin-block:4px}.bar{block-size:6px;background:var(--bad);border-radius:3px}
+.banner{padding:12px;border-radius:10px;margin-block:10px;font-weight:700}.err{background:#fde2e2;color:#991b1b}.okb{background:#dcfce7;color:#166534}
+.cert{border:2px dashed var(--pri);background:var(--card)}
+.blk{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;margin-block:8px;border-inline-start:4px solid var(--pri)}.blk.broken{border-color:var(--bad);background:#fde2e244}
+.h{cursor:pointer;color:var(--pri)}.demo{font-size:11px;background:var(--warn);color:#fff;border-radius:6px;padding:1px 6px}
+footer{color:var(--mut);font-size:13px;text-align:center;padding:24px}[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<header><div class="w"><div><h1>بصمة <small>/ Basma</small></h1><p class="tag" data-i="tag"></p></div><button id="lang">العربية</button></div></header>
+<main class="w">
+<div class="kpis">
+<div class="card kpi"><b id="k1">0</b><span data-i="k1"></span></div>
+<div class="card kpi"><b id="k2">0</b><span data-i="k2"></span></div>
+<div class="card kpi"><b id="k3">0</b><span data-i="k3"></span></div>
+<div class="card kpi"><b id="k4">0</b><span data-i="k4"></span></div>
+</div>
+<nav class="tabs" role="tablist"><button role="tab" data-tab="fp" data-i="tFp"></button><button role="tab" data-tab="mk" data-i="tMk"></button><button role="tab" data-tab="lg" data-i="tLg"></button></nav>
+<div class="path"><b data-i="path"></b><span data-i="p1"></span>›<span data-i="p2"></span>›<span data-i="p3"></span>›<span data-i="p4"></span>›<span data-i="p5"></span>›<span data-i="p6"></span></div>
+
+<section id="fp" class="card">
+<h2 data-i="fpH"></h2>
+<textarea id="txt" rows="3">This week I drove 40 km in a petrol car, flew 1,500 km by plane, ran the AC 10 hours, used 12 kWh of electricity and ate beef twice.</textarea>
+<div class="row"><button id="analyze" data-i="analyze"></button></div>
+<div id="fpOut"></div>
+</section>
+
+<section id="mk" hidden>
+<div class="card"><h2 data-i="offH"></h2>
+<div class="row"><label style="flex:2;min-inline-size:200px"><span data-i="batch"></span><select id="selB"></select></label>
+<label style="flex:1;min-inline-size:120px"><span data-i="qty"></span><input id="qty" type="number" step="0.001" min="0.001" value="0.25675"></label>
+<label style="flex:1;min-inline-size:140px"><span data-i="buyer"></span><input id="buyer" value="Demo User"></label></div>
+<button id="retire" data-i="retire"></button><div id="offOut"></div></div>
+<h2><span data-i="mkH"></span> <span class="demo" data-i="demo"></span></h2>
+<div id="cards" class="grid"></div>
+</section>
+
+<section id="lg" hidden class="card">
+<h2>BasmaChain</h2>
+<div class="row"><button id="verify" data-i="verify"></button><button class="r" id="tamper" data-i="tamper"></button><button class="g" id="dl" data-i="dl"></button><button class="g" id="reset" data-i="reset"></button></div>
+<div id="vOut"></div><div id="chain"></div>
+</section>
+</main>
+<footer data-i="foot"></footer>
+<script>
+const D={en:{tag:"From footprint to fingerprint: AI-audited, tamper-proof carbon credits.",k1:"tCO2e offset",k2:"Credits audited",k3:"Double-count attempts blocked",k4:"Ledger blocks",tFp:"Footprint",tMk:"Marketplace",tLg:"Ledger",path:"Demo path:",p1:"Analyze",p2:"Offset",p3:"Retire",p4:"Attack",p5:"Verify",p6:"Tamper",fpH:"AI Activity Parser",analyze:"Analyze",offsetBtn:"Offset this footprint",total:"Total footprint",item:"Activity",kg:"kg CO2e",conf:"Confidence",clar:"Needs clarification",offH:"Offset & retire credits",batch:"Credit batch",qty:"Amount (tCO2e)",buyer:"Buyer",retire:"Retire & offset",mkH:"Carbon-credit batches",demo:"demo data",why:"Why?",verify:"Verify chain",tamper:"Simulate tampering",reset:"Reset demo",dl:"Download ledger JSON",rev:"Reverted",cert:"Retirement certificate",attack:"Try to claim the same offset again (attack simulation)",okV:"Chain verified: all blocks intact",badV:"Chain broken at block",avail:"available",noFlags:"No integrity issues found",cat:{transport:"Transport",energy:"Energy",food:"Food"},foot:"Demo prototype. Emission factors are illustrative; credit batches are fictional; the AI models are lightweight on-device models (rule-based NLP + statistical scoring); the ledger is a local simulation, not a deployed public chain.",lang:"العربية",tampered:"A past LIST block's supply was silently inflated 10×. Now verify the chain."},
+ar:{tag:"لكل طن كربون بصمة موثّقة",k1:"طن مكافئ ثاني أكسيد الكربون معوَّض",k2:"أرصدة مدقَّقة",k3:"محاولات احتساب مزدوج محظورة",k4:"كتل السجل",tFp:"البصمة",tMk:"السوق",tLg:"السجل",path:"مسار العرض:",p1:"تحليل",p2:"تعويض",p3:"سحب",p4:"هجوم",p5:"تحقق",p6:"عبث",fpH:"محلل الأنشطة بالذكاء الاصطناعي",analyze:"تحليل",offsetBtn:"عوّض هذه البصمة",total:"إجمالي البصمة",item:"النشاط",kg:"كغ مكافئ",conf:"الثقة",clar:"بحاجة إلى توضيح",offH:"التعويض وسحب الأرصدة",batch:"دفعة الأرصدة",qty:"الكمية (طن)",buyer:"المشتري",retire:"اسحب وعوّض",mkH:"دفعات أرصدة الكربون",demo:"بيانات تجريبية",why:"لماذا؟",verify:"تحقق من السلسلة",tamper:"محاكاة العبث",reset:"إعادة الضبط",dl:"تنزيل السجل JSON",rev:"تم الرفض",cert:"شهادة السحب",attack:"حاول المطالبة بالتعويض نفسه مرة أخرى (محاكاة هجوم)",okV:"تم التحقق: جميع الكتل سليمة",badV:"السلسلة مكسورة عند الكتلة",avail:"متاح",noFlags:"لا توجد مشكلات نزاهة",cat:{transport:"النقل",energy:"الطاقة",food:"الغذاء"},foot:"نموذج تجريبي. معاملات الانبعاث توضيحية، ودفعات الأرصدة خيالية، ونماذج الذكاء الاصطناعي خفيفة تعمل على الجهاز، والسجل محاكاة محلية وليس سلسلة عامة.",lang:"English",tampered:"تم تضخيم كمية كتلة سابقة عشر مرات خفية. تحقق الآن من السلسلة."}};
+let L="en";const t=k=>D[L][k];const $=id=>document.getElementById(id);const YEAR=2026;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+async function sha(s){try{const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}catch(e){let h=5381,o="";for(let k=0;k<8;k++){for(const c of s+k)h=(h*33^c.charCodeAt(0))>>>0;o+=h.toString(16).padStart(8,"0")}return o}}
+// ---------- Footprint parser ----------
+const F={petrol:.19,diesel:.17,bus:.10,flight:.15,kwh:.45,acKwh:1.5,beef:6,lamb:7.5,chicken:1.5,fish:2,vegetarian:.7};
+const NUM={once:1,one:1,a:1,twice:2,two:2,thrice:3,three:3,four:4,five:5,six:6,seven:7,eight:8,nine:9,ten:10};
+let FP=null;
+function parse(text){
+ const s=text.toLowerCase().replace(/(\d),(?=\d{3})/g,"$1");
+ const parts=s.split(/[,;.!?\n]+|\band\b|\bthen\b|\balso\b/).map(x=>x.trim()).filter(Boolean),items=[],unk=[];
+ for(const p0 of parts){const p=p0.replace(/\b(once|twice|thrice|one|two|three|four|five|six|seven|eight|nine|ten)\b/g,w=>NUM[w]+" ");let m,hit=false;
+  if(m=p.match(/(\d+(?:\.\d+)?)\s*(km|kilomet\w*|mi\b|miles?)/)){let km=+m[1]*(/^mi/.test(m[2])?1.609:1),mode,c=.9;
+   if(/fl(ew|y|ight|ying)|plane|air(plane|craft)/.test(p))mode="flight";else if(/\bbus\b/.test(p))mode="bus";else if(/diesel/.test(p))mode="diesel";else if(/petrol|gasoline|gas car|\bcar\b|dr(o|i)ve/.test(p))mode="petrol";else{mode="petrol";c=.5}
+   items.push({n:p0,cat:"transport",kg:km*F[mode],c});hit=true}
+  else if(/\b(ac|a\/c|air ?con\w*)\b/.test(p)&&(m=p.match(/(\d+(?:\.\d+)?)\s*(h\b|hours?|hrs?)/))){items.push({n:p0,cat:"energy",kg:+m[1]*F.acKwh*F.kwh,c:.8});hit=true}
+  else if(m=p.match(/(\d+(?:\.\d+)?)\s*kwh/)){items.push({n:p0,cat:"energy",kg:+m[1]*F.kwh,c:.95});hit=true}
+  else{const food=p.match(/beef|steak|burger|lamb|mutton|chicken|poultry|fish|salmon|tuna|vegetarian|vegan|veggie|salad/);
+   if(food){const f=food[0],k=/beef|steak|burger/.test(f)?"beef":/lamb|mutton/.test(f)?"lamb":/chicken|poultry/.test(f)?"chicken":/fish|salmon|tuna/.test(f)?"fish":"vegetarian";m=p.match(/(\d+(?:\.\d+)?)/);
+    items.push({n:p0,cat:"food",kg:(m?+m[1]:1)*F[k],c:m?.85:.6});hit=true}}
+  if(!hit&&p.split(/\s+/).length>1&&!/^this (week|month)|^today$/.test(p))unk.push(p0)}
+ return{items,unk,total:items.reduce((a,b)=>a+b.kg,0)}}
+function renderFP(){if(!FP){$("fpOut").innerHTML="";return}const cats={transport:0,energy:0,food:0};FP.items.forEach(i=>cats[i.cat]+=i.kg);const mx=Math.max(...Object.values(cats),1);
+ let bars=Object.entries(cats).map(([k,v],i)=>`<text x="0" y="${i*34+18}" fill="currentColor" font-size="13">${t("cat")[k]}</text><rect x="90" y="${i*34+5}" height="18" rx="4" width="${v/mx*220}" fill="${["#0f8a74","#14b8a6","#65a30d"][i]}"/><text x="${96+v/mx*220}" y="${i*34+18}" font-size="12" fill="currentColor">${v.toFixed(2)}</text>`).join("");
+ $("fpOut").innerHTML=`<div class="row" style="align-items:flex-start;gap:24px"><div style="flex:1;min-inline-size:260px"><table><tr><th>${t("item")}</th><th>${t("kg")}</th><th>${t("conf")}</th></tr>${FP.items.map(i=>`<tr><td>${esc(i.n)}</td><td>${i.kg.toFixed(2)}</td><td><span class="badge" style="background:${i.c>=.85?"var(--ok)":i.c>=.7?"var(--b)":"var(--warn)"}">${Math.round(i.c*100)}%</span></td></tr>`).join("")}</table>
+ <p>${t("total")}: <span class="total">${FP.total.toFixed(2)}</span> kg CO2e (${(FP.total/1000).toFixed(5)} t)</p>
+ ${FP.unk.length?`<p><b>${t("clar")}:</b> ${FP.unk.map(esc).join(" · ")}</p>`:""}<button id="toOffset">${t("offsetBtn")}</button></div>
+ <svg viewBox="0 0 360 105" style="flex:1;min-inline-size:260px;max-inline-size:420px" role="img" aria-label="chart" direction="ltr">${bars}</svg></div>`}
+// ---------- Batches & auditor ----------
+const SEED=[
+{id:"B1",name:"Gulf Coast Mangrove Revival",type:"mangrove",loc:"Coastal lagoon, MENA",vintage:2024,verifiedYear:2025,supply:20000,price:24,verifier:"GreenAssure (fictional)",serial:"BSM-MG-24-001",box:[50,24,50.1,24.1],area:1000,claimed:7000,seller:"Azure Tides Co.",sellerAge:6},
+{id:"B2",name:"Highland Cedar Afforestation",type:"afforestation",loc:"Mountain slopes, MENA",vintage:2024,verifiedYear:2025,supply:15000,price:18,verifier:"TerraCert (fictional)",serial:"BSM-AF-24-002",box:[55,23,55.1,23.1],area:2000,claimed:6000,seller:"Cedar Roots Ltd.",sellerAge:4},
+{id:"B3",name:"Desert Sun Solar Park",type:"solar",loc:"Inland desert, MENA",vintage:2025,verifiedYear:2025,supply:40000,price:9,verifier:"VoltVerify (fictional)",serial:"BSM-PV-25-003",box:[46,25,46.1,25.1],mw:50,claimed:50000,seller:"Sahra Energy",sellerAge:8},
+{id:"B4",name:"Coastal Breeze Wind Farm",type:"wind",loc:"Windy cape, MENA",vintage:2021,verifiedYear:2021,supply:30000,price:11,verifier:"WindCheck (fictional)",serial:"BSM-WD-21-004",box:[58,21,58.1,21.1],mw:40,claimed:48000,seller:"Nasim Power",sellerAge:7},
+{id:"B5",name:"Oasis Palm Belt Greening",type:"afforestation",loc:"Oasis edge, MENA",vintage:2022,verifiedYear:2022,supply:60000,price:7,verifier:"QuickVerify (fictional)",serial:"BSM-AF-22-005",box:[52,20,52.1,20.1],area:2500,claimed:7500,seller:"NewLeaf Trading",sellerAge:.5},
+{id:"B6",name:"Blue Carbon Estuary Credits",type:"mangrove",loc:"Estuary, MENA",vintage:2025,verifiedYear:2025,supply:25000,price:6,verifier:"GreenAssure (fictional)",serial:"BSM-MG-24-001",box:[49,26,49.1,26.1],area:900,claimed:6300,seller:"Swift Offsets",sellerAge:2},
+{id:"B7",name:"Miracle Mangrove Megaproject",type:"mangrove",loc:"Tidal flats, MENA",vintage:2025,verifiedYear:2025,supply:30000,price:5,verifier:"TerraCert (fictional)",serial:"BSM-MG-25-007",box:[53,27,53.1,27.1],area:500,claimed:20000,seller:"Rapid Carbon",sellerAge:3},
+{id:"B8",name:"Sunrise Solar Expansion",type:"solar",loc:"Inland desert, MENA",vintage:2025,verifiedYear:2025,supply:35000,price:8,verifier:"VoltVerify (fictional)",serial:"BSM-PV-25-008",box:[46.02,25.02,46.12,25.12],mw:45,claimed:45000,seller:"Dune Watts",sellerAge:2}];
+const Y={mangrove:[7,2],afforestation:[3,1.2],solar:[1000,150],wind:[1200,150]};
+const FT={en:{old:a=>`Verification is ${a} years old (>3)`,nover:()=>"No third-party verifier",newsel:()=>"New seller (<1 yr) listing >50,000 t",ov:p=>`Site overlaps an earlier batch by ${p}%`,ovc:p=>`CRITICAL: site overlaps an earlier batch by ${p}%`,dup:x=>`CRITICAL: serial duplicates batch ${x}`,z:z=>`Yield unusually high (z = ${z})`,zc:z=>`CRITICAL: implausible yield (z = ${z})`},
+ar:{old:a=>`عمر التحقق ${a} سنوات (أكثر من 3)`,nover:()=>"لا يوجد جهة تحقق مستقلة",newsel:()=>"بائع جديد (أقل من سنة) يعرض أكثر من 50,000 طن",ov:p=>`تداخل الموقع مع دفعة سابقة بنسبة ${p}%`,ovc:p=>`حرج: تداخل الموقع مع دفعة سابقة بنسبة ${p}%`,dup:x=>`حرج: الرقم التسلسلي مكرر من الدفعة ${x}`,z:z=>`إنتاجية مرتفعة بشكل غير معتاد (z = ${z})`,zc:z=>`حرج: إنتاجية غير معقولة (z = ${z})`}};
+const area=b=>Math.max(0,b[2]-b[0])*Math.max(0,b[3]-b[1]);
+const inter=(a,b)=>area([Math.max(a[0],b[0]),Math.max(a[1],b[1]),Math.min(a[2],b[2]),Math.min(a[3],b[3])]);
+function audit(b,i,all){let s=100,crit=false,fl=[],dupOf=null;const add=(k,v,d,c)=>{fl.push({k,v,d,c});s+=d};
+ if(!b.verifier)add("nover",0,-30);else if(YEAR-b.verifiedYear>3)add("old",YEAR-b.verifiedYear,-20);
+ if(b.sellerAge<1&&b.total>50000)add("newsel",0,-15);
+ let ov=0;for(let j=0;j<i;j++){ov=Math.max(ov,inter(b.box,all[j].box)/area(b.box));if(all[j].serial===b.serial&&!dupOf)dupOf=all[j].id}
+ const op=Math.round(ov*100);if(ov>.5){crit=true;add("ovc",op,-40,1)}else if(ov>=.1)add("ov",op,-20);
+ if(dupOf){crit=true;add("dup",dupOf,-40,1)}
+ const [mu,sd]=Y[b.type],y=b.claimed/(b.area||b.mw),z=(y-mu)/sd,zs=z.toFixed(1);
+ if(z>3){crit=true;add("zc",zs,-40,1)}else if(z>2)add("z",zs,-20);else if(z>1)add("z",zs,-6*(z-1));
+ let score=Math.max(0,Math.round(s));if(crit)score=Math.min(score,45);
+ const grade=score>=85?"A":score>=70?"B":score>=50?"C":"D";return{score,grade,fl,dupOf,crit,yield:+y.toFixed(2),z:+z.toFixed(2)}}
+const GC={A:"var(--ok)",B:"var(--b)",C:"var(--warn)",D:"var(--bad)"};
+// ---------- State & ledger ----------
+let B,chain,claims,blocked,offset,lastRetire;
+async function mkBlock(type,payload){const prev=chain.length?chain[chain.length-1].hash:"0".repeat(64);const blk={index:chain.length,timestamp:new Date().toISOString(),type,payload,prevHash:prev};blk.hash=await hashBlock(blk);chain.push(blk);return blk}
+const hashBlock=b=>sha(b.index+"|"+b.timestamp+"|"+b.type+"|"+JSON.stringify(b.payload)+"|"+b.prevHash);
+async function init(){B=SEED.map(b=>({...b,box:[...b.box],total:b.supply}));chain=[];claims=new Set();blocked=0;offset=0;lastRetire=null;
+ B.forEach((b,i,a)=>b.a=audit(b,i,a));await mkBlock("GENESIS",{msg:"BasmaChain genesis"});
+ for(const b of B){const auditHash=await sha(JSON.stringify({id:b.id,score:b.a.score,grade:b.a.grade,flags:b.a.fl,yield:b.a.yield,z:b.a.z}));await mkBlock("LIST",{id:b.id,serial:b.serial,supply:b.supply,score:b.a.score,grade:b.a.grade,auditHash})}
+ $("offOut").innerHTML="";$("vOut").innerHTML="";render()}
+function require_(c,r){if(!c)throw new Error(r)}
+async function retire(batchId,qty,buyer,claimId){const b=B.find(x=>x.id===batchId);
+ try{require_(b,"Unknown batch");require_(!b.a.dupOf,`Duplicate serial already issued to batch ${b.a.dupOf}`);require_(b.a.score>=70,"Integrity below policy threshold 70");
+  require_(qty>0&&qty<=b.supply,"Insufficient remaining supply");require_(!claims.has(claimId),"Claim already retired - double counting blocked");
+ }catch(e){if(/Duplicate serial|double counting/.test(e.message))blocked++;return{ok:false,reason:e.message}}
+ b.supply=+(b.supply-qty).toFixed(6);claims.add(claimId);offset+=qty;const blk=await mkBlock("RETIRE",{batch:b.id,serial:b.serial,qty,buyer,claimId,remaining:b.supply});return{ok:true,blk,b,qty,buyer,claimId}}
+// ---------- Render ----------
+function ring(a){const c=2*Math.PI*26,col=GC[a.grade];return`<svg width="70" height="70" viewBox="0 0 64 64" aria-label="score ${a.score}"><circle cx="32" cy="32" r="26" fill="none" stroke="var(--bd)" stroke-width="6"/><circle cx="32" cy="32" r="26" fill="none" stroke="${col}" stroke-width="6" stroke-dasharray="${c*a.score/100} ${c}" transform="rotate(-90 32 32)" stroke-linecap="round"/><text x="32" y="31" text-anchor="middle" font-size="15" font-weight="800" fill="currentColor">${a.score}</text><text x="32" y="45" text-anchor="middle" font-size="10" fill="${col}" font-weight="700">${a.grade}</text></svg>`}
+function render(){document.querySelectorAll("[data-i]").forEach(e=>e.textContent=t(e.dataset.i));$("lang").textContent=t("lang");
+ $("k1").textContent=offset.toFixed(3);$("k2").textContent=B.length;$("k3").textContent=blocked;$("k4").textContent=chain.length;
+ const sel=$("selB").value;$("selB").innerHTML=B.map(b=>`<option value="${b.id}">${b.id} · ${esc(b.name)} · ${b.a.score}/${b.a.grade} · ${b.supply.toLocaleString()} t</option>`).join("");if(sel)$("selB").value=sel;
+ $("cards").innerHTML=B.map(b=>`<article class="card"><div class="bt">${ring(b.a)}<div><h3>${b.id} · ${esc(b.name)}</h3><div class="meta">${b.type} · ${esc(b.loc)} · vintage ${b.vintage}<br>${b.supply.toLocaleString()} t ${t("avail")} · $${b.price}/t · ${b.area?b.area+" ha":b.mw+" MW"} · claimed ${b.claimed.toLocaleString()} t/yr<br>verifier: ${esc(b.verifier||"none")} (${b.verifiedYear}) · serial ${b.serial}<br>seller: ${esc(b.seller)} (${b.sellerAge} yr)</div></div></div>
+ <details><summary>${t("why")}</summary>${b.a.fl.length?b.a.fl.map(f=>`<div class="fl" style="color:${f.c?"var(--bad)":"inherit"}">• ${FT[L][f.k](f.v)} <b>${Math.round(f.d)}</b><div class="bar" style="inline-size:${Math.min(100,Math.abs(f.d)/40*100)}%;background:${f.c?"var(--bad)":"var(--warn)"}"></div></div>`).join(""):`<div class="fl" style="color:var(--ok)">✓ ${t("noFlags")}</div>`}<div class="meta">yield ${b.a.yield} t/${b.area?"ha":"MW"}/yr · z = ${b.a.z}</div></details></article>`).join("");
+ $("chain").innerHTML=[...chain].reverse().map(c=>`<div class="card blk" id="blk${c.index}"><b>#${c.index} ${c.type}</b> · ${c.timestamp}<br>hash: <span class="h" data-copy="${c.hash}" tabindex="0">${c.hash.slice(0,18)}…</span> · prev: <span class="h" data-copy="${c.prevHash}" tabindex="0">${c.prevHash.slice(0,18)}…</span><br><span class="meta">${esc(JSON.stringify(c.payload))}</span></div>`).join("");
+ if(FP)renderFP()}
+function tab(id){["fp","mk","lg"].forEach(x=>$(x).hidden=x!==id);document.querySelectorAll("[data-tab]").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===id))}
+async function doRetire(attack){const args=attack&&lastRetire?lastRetire:{id:$("selB").value,qty:+$("qty").value,buyer:$("buyer").value.trim()||"Demo User"};
+ const claimId=await sha(args.buyer+($("txt").value)+args.qty);const r=await retire(args.id,args.qty,args.buyer,claimId);
+ if(!r.ok){$("offOut").innerHTML=`<div class="banner err">${t("rev")}: ${esc(r.reason)}</div>`+(attack?$("certBox")?.outerHTML||"":"")}
+ else{lastRetire=args;$("offOut").innerHTML=`<div class="card cert" id="certBox"><h3>🏅 ${t("cert")}</h3><div>${t("buyer")}: <b>${esc(r.buyer)}</b><br>${r.qty} tCO2e · ${r.b.id} ${esc(r.b.name)}<br>serial ${r.b.serial}<br>block #${r.blk.index}: <code>${r.blk.hash.slice(0,32)}…</code><br>${r.blk.timestamp}</div><div class="row"><button class="r" data-act="attack">${t("attack")}</button></div></div>`}
+ render()}
+async function verify(){document.querySelectorAll(".blk").forEach(e=>e.classList.remove("broken"));for(let i=0;i<chain.length;i++){const c=chain[i];const ok=(await hashBlock(c))===c.hash&&(i===0||c.prevHash===chain[i-1].hash);
+ if(!ok){$("vOut").innerHTML=`<div class="banner err">✗ ${t("badV")} #${i}</div>`;$("blk"+i)?.classList.add("broken");return}}$("vOut").innerHTML=`<div class="banner okb">✓ ${t("okV")} (${chain.length})</div>`}
+document.addEventListener("click",async e=>{const el=e.target.closest("button,[data-copy]");if(!el)return;
+ if(el.dataset.tab)return tab(el.dataset.tab);if(el.dataset.copy){navigator.clipboard?.writeText(el.dataset.copy).catch(()=>{});el.textContent="copied ✓";return}
+ switch(el.id){case"lang":L=L==="en"?"ar":"en";document.documentElement.lang=L;document.documentElement.dir=L==="ar"?"rtl":"ltr";render();break;
+ case"analyze":FP=parse($("txt").value);renderFP();break;
+ case"toOffset":$("qty").value=+(FP.total/1000).toFixed(5);tab("mk");break;
+ case"retire":doRetire(false);break;
+ case"verify":verify();break;
+ case"tamper":{const c=chain.find(x=>x.type==="LIST");c.payload.supply*=10;render();$("vOut").innerHTML=`<div class="banner err">${t("tampered")}</div>`;tab("lg");break}
+ case"reset":FP=null;await init();break;
+ case"dl":{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(chain,null,2)],{type:"application/json"}));a.download="basmachain.json";a.click();break}}
+ if(el.dataset.act==="attack")doRetire(true)});
+document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.dataset?.copy)e.target.click()});
+init().then(()=>tab("fp"));
+</script>
+</body>
+</html>
