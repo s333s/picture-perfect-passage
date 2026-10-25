@@ -1,24 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Basma بصمة — AI-audited carbon credits" },
+      { name: "description", content: "From footprint to fingerprint: AI-audited, tamper-proof carbon credits on a hash-chained ledger." },
+      { property: "og:title", content: "Basma بصمة — AI-audited carbon credits" },
+      { property: "og:description", content: "Footprint parser, explainable credit auditor, smart-contract retirement and a tamper-evident ledger." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
+  return <iframe src="/basma.html" title="Basma" className="block h-screen w-full border-0" />;
 }
